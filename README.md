@@ -296,6 +296,7 @@ The script will:
 - `SETUP_GUIDE.md` - Detailed setup instructions
 - `EXAMPLE_OUTPUT.md` - Example script outputs
 - `FZF_GUIDE.md` - Guide to using fzf interactive menus
+- `AGENTS.md` - Guidelines for AI coding assistants
 
 ## 🔄 API Details
 
