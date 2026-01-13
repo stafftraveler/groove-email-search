@@ -2,7 +2,7 @@
 
 ##############################################################################
 # Groove API Email Fetcher - Setup Script
-# 
+#
 # This script installs all required dependencies and sets up the environment
 # for the Groove API Email Fetcher
 #
@@ -39,7 +39,7 @@ install_homebrew() {
     echo -e "${YELLOW}Homebrew is not installed. Installing now...${NC}"
     echo ""
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    
+
     # Check if installation was successful
     if command_exists brew; then
         echo -e "${GREEN}✓ Homebrew installed successfully${NC}"
@@ -93,10 +93,11 @@ else
 fi
 echo ""
 
-# Make the main script executable
+# Make the scripts executable
 echo -e "${BLUE}[4/5] Setting execute permissions...${NC}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 MAIN_SCRIPT="$SCRIPT_DIR/fetch_all_groove_emails.sh"
+PUBLISH_SCRIPT="$SCRIPT_DIR/publish-to-github.sh"
 
 if [ -f "$MAIN_SCRIPT" ]; then
     chmod +x "$MAIN_SCRIPT"
@@ -105,6 +106,13 @@ else
     echo -e "${RED}✗ Could not find fetch_all_groove_emails.sh${NC}"
     echo "Make sure setup.sh is in the same directory as fetch_all_groove_emails.sh"
     exit 1
+fi
+
+if [ -f "$PUBLISH_SCRIPT" ]; then
+    chmod +x "$PUBLISH_SCRIPT"
+    echo -e "${GREEN}✓ Execute permissions set on publish-to-github.sh${NC}"
+else
+    echo -e "${YELLOW}⚠ publish-to-github.sh not found (optional)${NC}"
 fi
 echo ""
 

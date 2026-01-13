@@ -256,12 +256,36 @@ The API returned an error. Check the error message and verify:
 - The API endpoint is correct
 - You have proper permissions
 
+## 📤 Publishing to GitHub
+
+This project includes a helper script to publish to GitHub:
+
+```bash
+./publish-to-github.sh
+```
+
+**Prerequisites:**
+
+- GitHub CLI (gh) installed: `brew install gh`
+- Authenticated with GitHub: `gh auth login`
+- Member of stafftraveler organization with repo creation permissions
+
+The script will:
+
+1. Prompt you for the repository name and description
+2. Create the repository in the stafftraveler organization
+3. Initialize git (if needed)
+4. Add the remote
+5. Create an initial commit
+6. Push to GitHub
+
 ## 📝 Files Included
 
 - `setup.sh` - Automated setup script (installs bash dependencies)
 - `fetch_all_groove_emails.sh` - Bash script with fzf interactive interface
 - `fetch_all_groove_emails.js` - Node.js script with @inquirer/prompts
 - `package.json` - Node.js dependencies configuration
+- `publish-to-github.sh` - Helper script to publish repository to GitHub
 - `.env.example` - Template for environment variables (copy to .env)
 - `.gitignore` - Ensures .env and output files aren't committed
 - `export/` - Output directory for exported contacts

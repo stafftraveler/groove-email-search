@@ -51,10 +51,27 @@ echo ""
 
 # Repository details
 ORG="stafftraveler"
-REPO="groove-email-search"
-DESCRIPTION="Search and export contacts from Groove emails with an interactive CLI"
 
-echo -e "${BLUE}Repository Configuration:${NC}"
+# Prompt for repository name
+echo -e "${BLUE}Repository Configuration${NC}"
+echo ""
+read -p "Enter repository name: " REPO
+
+if [ -z "$REPO" ]; then
+    echo -e "${RED}Error: Repository name cannot be empty${NC}"
+    exit 1
+fi
+
+# Prompt for description
+read -p "Enter repository description: " DESCRIPTION
+
+if [ -z "$DESCRIPTION" ]; then
+    echo -e "${YELLOW}Warning: No description provided${NC}"
+    DESCRIPTION=""
+fi
+
+echo ""
+echo -e "${BLUE}Repository Details:${NC}"
 echo "  Organization: $ORG"
 echo "  Repository: $REPO"
 echo "  Description: $DESCRIPTION"
