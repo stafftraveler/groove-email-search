@@ -1,0 +1,23 @@
+{
+  "name": "groove-email-search",
+  "version": "1.0.0",
+  "description": "Groove API Email Fetcher - Extract contact information from Groove conversations",
+  "main": "fetch_all_groove_emails.js",
+  "scripts": {
+    "start": "node fetch_all_groove_emails.js"
+  },
+  "keywords": [
+    "groove",
+    "api",
+    "email",
+    "contacts"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@inquirer/prompts": "^6.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

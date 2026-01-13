@@ -1,0 +1,47 @@
+name: Validate Scripts
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: macos-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Check bash scripts syntax
+      run: |
+        bash -n setup.sh
+        bash -n fetch_all_groove_emails.sh
+    
+    - name: Check for hardcoded tokens
+      run: |
+        if grep -r "AUTH_TOKEN=" --include="*.sh" --include="*.js" --exclude=".env.example" --exclude="*.md" .; then
+          echo "Error: Found hardcoded AUTH_TOKEN in code"
+          exit 1
+        fi
+        echo "✓ No hardcoded tokens found"
+    
+    - name: Verify .gitignore includes .env
+      run: |
+        if ! grep -q "^\.env$" .gitignore; then
+          echo "Error: .env not in .gitignore"
+          exit 1
+        fi
+        echo "✓ .env is properly ignored"
+    
+    - name: Check required files exist
+      run: |
+        files=("setup.sh" "fetch_all_groove_emails.sh" ".env.example" ".gitignore" "README.md")
+        for file in "${files[@]}"; do
+          if [ ! -f "$file" ]; then
+            echo "Error: Required file $file is missing"
+            exit 1
+          fi
+        done
+        echo "✓ All required files present"

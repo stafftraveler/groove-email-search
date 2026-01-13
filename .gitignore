@@ -1,0 +1,16 @@
+# Environment variables (contains sensitive API tokens)
+.env
+
+# Output files (excluding samples)
+export/groove_all_contacts.json
+export/groove_all_contacts.csv
+
+# Temporary files
+groove_temp_*
+
+# macOS
+.DS_Store
+
+# Node.js
+node_modules/
+npm-debug.log
