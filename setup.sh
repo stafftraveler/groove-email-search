@@ -65,7 +65,7 @@ install_package() {
 }
 
 # Check and install Homebrew
-echo -e "${BLUE}[1/4] Checking Homebrew...${NC}"
+echo -e "${BLUE}[1/5] Checking Homebrew...${NC}"
 if command_exists brew; then
     echo -e "${GREEN}✓ Homebrew is already installed${NC}"
 else
@@ -74,7 +74,7 @@ fi
 echo ""
 
 # Check and install jq
-echo -e "${BLUE}[2/4] Checking jq (JSON parser)...${NC}"
+echo -e "${BLUE}[2/5] Checking jq (JSON parser)...${NC}"
 if command_exists jq; then
     echo -e "${GREEN}✓ jq is already installed${NC}"
     jq --version
@@ -84,7 +84,7 @@ fi
 echo ""
 
 # Check and install fzf
-echo -e "${BLUE}[3/4] Checking fzf (fuzzy finder)...${NC}"
+echo -e "${BLUE}[3/5] Checking fzf (fuzzy finder)...${NC}"
 if command_exists fzf; then
     echo -e "${GREEN}✓ fzf is already installed${NC}"
     fzf --version
