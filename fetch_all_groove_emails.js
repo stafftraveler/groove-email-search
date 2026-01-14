@@ -9,6 +9,7 @@
  * Prerequisites:
  * - Node.js installed
  * - @inquirer/prompts package (npm install @inquirer/prompts)
+ * - cli-progress package (npm install cli-progress)
  * - .env file with AUTH_TOKEN
  *
  * Usage:
@@ -20,6 +21,7 @@
 const https = require("https");
 const fs = require("fs");
 const path = require("path");
+const cliProgress = require("cli-progress");
 
 // Import inquirer
 let select, input;
@@ -342,13 +344,14 @@ async function fetchAllEmails(
   let cursor = null;
   let pageCount = 0;
   let totalCount = 0;
+  let totalPages = 0;
+  let progressBar = null;
 
   console.log(`${colors.green}Starting to fetch emails...${colors.reset}\n`);
 
   try {
     while (true) {
       pageCount++;
-      console.log(`${colors.blue}Fetching page ${pageCount}...${colors.reset}`);
 
       const response = await makeRequest(cursor, filter, queryId, graphqlQuery);
 
@@ -361,13 +364,27 @@ async function fetchAllEmails(
 
       if (pageCount === 1) {
         totalCount = conversations.totalCount;
-        const totalPages = Math.ceil(totalCount / CONFIG.pageSize);
+        totalPages = Math.ceil(totalCount / CONFIG.pageSize);
         console.log(
           `${colors.green}Total emails to fetch: ${totalCount}${colors.reset}`
         );
         console.log(
           `${colors.green}Total pages: ${totalPages}${colors.reset}\n`
         );
+
+        // Initialize progress bar
+        progressBar = new cliProgress.SingleBar({
+          format:
+            "Progress |" +
+            colors.cyan +
+            "{bar}" +
+            colors.reset +
+            "| {percentage}% | Page {value}/{total} | Contacts: {contacts}",
+          barCompleteChar: "\u2588",
+          barIncompleteChar: "\u2591",
+          hideCursor: true,
+        });
+        progressBar.start(totalPages, 0, { contacts: 0 });
       }
 
       // Extract contact information
@@ -381,15 +398,19 @@ async function fetchAllEmails(
         }
       }
 
-      console.log(
-        `Fetched ${nodes.length} emails (Total so far: ${allContacts.length}/${totalCount})`
-      );
+      // Update progress bar
+      if (progressBar) {
+        progressBar.update(pageCount, { contacts: allContacts.length });
+      }
 
       // Check if there are more pages
       const hasNextPage = conversations.pageInfo.hasNextPage;
       cursor = conversations.pageInfo.endCursor;
 
       if (!hasNextPage) {
+        if (progressBar) {
+          progressBar.stop();
+        }
         console.log(`\n${colors.green}✓ All emails fetched!${colors.reset}`);
         break;
       }
@@ -398,6 +419,9 @@ async function fetchAllEmails(
       await delay(CONFIG.delayMs);
     }
   } catch (error) {
+    if (progressBar) {
+      progressBar.stop();
+    }
     console.error(`\n❌ Error: ${error.message}`);
     if (allContacts.length > 0) {
       console.log(
