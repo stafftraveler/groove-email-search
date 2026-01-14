@@ -2,8 +2,8 @@
 .env
 
 # Output files (excluding samples)
-export/groove_all_contacts.json
-export/groove_all_contacts.csv
+export/exported_contacts.json
+export/exported_contacts.csv
 
 # Temporary files
 groove_temp_*

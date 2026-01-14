@@ -127,7 +127,7 @@ npm start
 
 All results are automatically saved to the `export/` folder. The script can export results in two formats:
 
-### JSON Format (`export/groove_all_contacts.json`)
+### JSON Format (`export/exported_contacts.json`)
 
 ```json
 [
@@ -145,7 +145,7 @@ All results are automatically saved to the `export/` folder. The script can expo
 ]
 ```
 
-### CSV Format (`export/groove_all_contacts.csv`)
+### CSV Format (`export/exported_contacts.csv`)
 
 ```csv
 firstName,lastName,email
@@ -291,7 +291,7 @@ The script will:
 - `export/` - Output directory for exported contacts
   - `groove_contacts_sample.json` - Sample data (20 fictional contacts)
   - `groove_contacts_sample.csv` - Sample data in CSV format
-  - `groove_all_contacts.json/csv` - Your exported results (auto-generated)
+  - `exported_contacts.json/csv` - Your exported results (auto-generated)
 - `README.md` - This file
 - `SETUP_GUIDE.md` - Detailed setup instructions
 - `EXAMPLE_OUTPUT.md` - Example script outputs

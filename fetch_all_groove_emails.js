@@ -14,7 +14,7 @@
  * Usage:
  * node fetch_all_groove_emails.js
  *
- * Results will be saved to export/groove_all_contacts.json or export/groove_all_contacts.csv
+ * Results will be saved to export/exported_contacts.json or export/exported_contacts.csv
  */
 
 const https = require("https");
@@ -502,8 +502,8 @@ async function main() {
 
     const fileName =
       exportFormat === "json"
-        ? "groove_all_contacts.json"
-        : "groove_all_contacts.csv";
+        ? "exported_contacts.json"
+        : "exported_contacts.csv";
     const outputFile = path.join(CONFIG.exportDir, fileName);
     console.log(
       `${

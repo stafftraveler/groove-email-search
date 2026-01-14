@@ -15,7 +15,7 @@
 # 1. Make this script executable: chmod +x fetch_all_groove_emails.sh
 # 2. Run it: ./fetch_all_groove_emails.sh
 # 3. Use arrow keys to select options, Enter to confirm
-# 4. Results will be saved to export/groove_all_contacts.json or export/groove_all_contacts.csv
+# 4. Results will be saved to export/exported_contacts.json or export/exported_contacts.csv
 ##############################################################################
 
 # Configuration
@@ -281,11 +281,11 @@ fi
 
 # Set output file and format
 if [ "$EXPORT_SELECTION" == "JSON" ]; then
-    OUTPUT_FILE="$EXPORT_DIR/groove_all_contacts.json"
+    OUTPUT_FILE="$EXPORT_DIR/exported_contacts.json"
     EXPORT_MODE="json"
     echo -e "${GREEN}Results will be exported as JSON${NC}"
 else
-    OUTPUT_FILE="$EXPORT_DIR/groove_all_contacts.csv"
+    OUTPUT_FILE="$EXPORT_DIR/exported_contacts.csv"
     EXPORT_MODE="csv"
     echo -e "${GREEN}Results will be exported as CSV${NC}"
 fi
